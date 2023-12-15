@@ -10,10 +10,10 @@ param name string = 'petstore'
   'yaml-v3' //uses 'openapi-link' format
   'json-v3' //uses 'openapi+json-link' format
 ])
-param swaggerType string = 'yaml-v3'
+param swaggerType string = 'json-v3'
 
 // This url needs to be reachable for APIM
-param urlToSwagger string = 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml'
+param urlToSwagger string = 'https://petstore.swagger.io/v2/swagger.json'
 
 // There can be only one api without path
 param apiPath string = 'petstore'
@@ -27,7 +27,7 @@ resource apimService 'Microsoft.ApiManagement/service@2023-03-01-preview' existi
   scope: resourceGroup()
 }
 
-resource api 'Microsoft.ApiManagement/service/apis@2020-06-01-preview' = {
+resource api 'Microsoft.ApiManagement/service/apis@2023-03-01-preview' = {
   name: name
   parent: apimService
   properties: {

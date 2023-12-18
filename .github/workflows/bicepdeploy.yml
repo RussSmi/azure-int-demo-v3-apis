@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build-and-deploy-dev:
     runs-on: ubuntu-latest
     steps:
 
@@ -24,5 +24,26 @@ jobs:
         inlineScript: |
            az deployment group create \
              --name 'bicep-deploy' \
-             --resource-group ${{ secrets.RG_PREFIX}}'dev' \
+             --resource-group ${{ var.RG_PREFIX}}'dev' \
              --parameters bicep/main.dev.bicepparam
+
+  build-and-deploy-test:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy Bicep file
+    - uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az deployment group create \
+              --name 'bicep-deploy' \
+              --resource-group ${{ var.RG_PREFIX}}'dev' \
+              --parameters bicep/main.test.bicepparam             

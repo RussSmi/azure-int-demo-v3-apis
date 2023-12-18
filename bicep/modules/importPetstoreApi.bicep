@@ -34,6 +34,7 @@ resource api 'Microsoft.ApiManagement/service/apis@2023-03-01-preview' = {
     format: format
     value: urlToSwagger
     path: apiPath
+    subscriptionRequired: false
     // apiVersion: apiVersion
     // apiVersionSetId: apiVersionSet.id
   }

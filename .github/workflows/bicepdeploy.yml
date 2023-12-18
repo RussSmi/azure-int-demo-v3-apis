@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy-dev:
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     steps:
 
       # Checkout code
@@ -24,11 +26,13 @@ jobs:
         inlineScript: |
            az deployment group create \
              --name 'bicep-deploy' \
-             --resource-group ${{ var.RG_PREFIX}}'dev' \
+             --resource-group ${{ vars.RG_PREFIX}}'dev' \
              --parameters bicep/main.dev.bicepparam
 
   build-and-deploy-test:
     runs-on: ubuntu-latest
+    environment:
+      name: test
     steps:
 
       # Checkout code
@@ -45,5 +49,5 @@ jobs:
         inlineScript: |
             az deployment group create \
               --name 'bicep-deploy' \
-              --resource-group ${{ var.RG_PREFIX}}'dev' \
+              --resource-group ${{ vars.RG_PREFIX}}'dev' \
               --parameters bicep/main.test.bicepparam             

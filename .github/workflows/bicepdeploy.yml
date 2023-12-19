@@ -49,5 +49,5 @@ jobs:
         inlineScript: |
             az deployment group create \
               --name 'bicep-deploy' \
-              --resource-group ${{ vars.RG_PREFIX}}'dev' \
+              --resource-group ${{ vars.RG_PREFIX}}'test' \
               --parameters bicep/main.test.bicepparam             
